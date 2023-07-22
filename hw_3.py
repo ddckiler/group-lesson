@@ -1,60 +1,54 @@
-def validate_password(password: str) -> bool:
-    if len(password) < 8:
-        return False
+import jwt
+import datetime
+import time
+import config
 
-    if not any(char.isdigit() for char in password):
-        return False
+def generate_token(payload):
 
-    if not any(char.islower() for char in password):
-        return False
+    exp_time = datetime.datetime.utcnow() + datetime.timedelta(minutes=15)
+    payload['exp'] = exp_time
 
-    if not any(char.isupper() for char in password):
-        return False
 
-    if not any(char in '+-/*!"№;%:?*()=' for char in password):
-        return False
+    payload['iat'] = datetime.datetime.utcnow()
 
-    if ' ' in password:
-        return False
 
-    if not all(char.isascii() for char in password):
-        return False
+    encode_jwt = jwt.encode(
+        payload=payload,
+        key=config.JWT_SECRET,
+        algorithm='HS256',
+    )
 
-    return True
-import unittest
+    return encode_jwt
 
-class PasswordValidationTest(unittest.TestCase):
-    def test_valid_password(self):
-        password = "Abcdefg1!#"
-        self.assertTrue(validate_password(password))
+def decode_token(token):
+    try:
 
-    def test_short_password(self):
-        password = "Abc123!"
-        self.assertFalse(validate_password(password))
+        decoded = jwt.decode(
+            token,
+            config.JWT_SECRET,
+            algorithms=['HS256'],
+        )
+        return decoded
+    except jwt.ExpiredSignatureError:
 
-    def test_no_digit(self):
-        password = "Abcdefg!#"
-        self.assertFalse(validate_password(password))
+        return {'error': 'Token has expired.'}
+    except jwt.InvalidTokenError:
 
-    def test_no_lowercase(self):
-        password = "ABCDEFG1!#"
-        self.assertFalse(validate_password(password))
+        return {'error': 'Invalid token.'}
 
-    def test_no_uppercase(self):
-        password = "abcdefg1!#"
-        self.assertFalse(validate_password(password))
 
-    def test_no_special_character(self):
-        password = "Abcdefg123"
-        self.assertFalse(validate_password(password))
+payload_data = {
+    'my_name': 'Vasyl',
+    'password': 'kdfjhgkl;dfjkgdfkluhg;.dfjglkdfgkdfli;ghdfljgkljdfgkl;dfg',
+}
 
-    def test_contains_space(self):
-        password = "Abcdefg1!# "
-        self.assertFalse(validate_password(password))
 
-    def test_non_ascii_characters(self):
-        password = "Привіт123!#"
-        self.assertFalse(validate_password(password))
+token = generate_token(payload_data)
+print("Encoded Token:", token)
 
-if __name__ == '__main__':
-    unittest.main()
+
+time.sleep(3)
+
+
+decoded_payload = decode_token(token)
+print("Decoded Payload:", decoded_payload)
