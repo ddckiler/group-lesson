@@ -1,0 +1,68 @@
+    1  pwd
+    2  ssh-keygen
+    3  print("hi")
+    4  git init
+    5  git remote add origin git@github.com:ddckiler/group-lesson.git
+    6  git fetch
+    7  git pull origin master
+    8  git status
+    9  git status
+   10  git add README>MD
+   11  git status
+   12  git status
+   13  git status
+   14  git status
+   15  git status
+   16  git status
+   17  git status
+   18  git status
+   19  git status
+   20  git status
+   21  git status
+   22  git status
+   23  git status
+   24  git status
+   25  git status
+   26  git status
+   27  git status
+   28  git status
+   29  git status
+   30  git status
+   31  git status
+   32  git status
+   33  git status
+   34  git status
+   35  git init
+   36  git status
+   37  git add
+   38  git add . 
+   39  git status
+   40  git status
+   41  git log
+   42  add data to git
+   43  git push origin master
+   44   ADD DATA TO GITHUB
+   45   git branch HW-3
+   46   git checkout HW-3
+   47  git push origin HW-3
+   48  git status
+   49  git add
+   50  git ad .READ.me
+   51  git add .READ.me
+   52  git add .READ.md
+   53  git add .README.md
+   54  git add .
+   55  git status
+   56  pull master changes
+   57  history
+   58  history
+   59  git status
+   60  git status
+   61  git add.
+   62  git add .
+   63  git status
+   64  history
+   65  git push origin HW-3
+   66  git status
+   67  history > history.txt
+gg
